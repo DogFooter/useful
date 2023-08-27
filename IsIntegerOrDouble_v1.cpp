@@ -11,6 +11,8 @@ bool isInteger(const std::string& str) {
     return true;
 }
 
+
+//testcode
 int main() {
     std::string str1 = "123";
     std::string str2 = "12.34";
