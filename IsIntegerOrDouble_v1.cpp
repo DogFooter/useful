@@ -2,30 +2,47 @@
 #include <string>
 
 /* 해당 문자가 정수인지 실수인지 판별 */
-bool isInteger(const std::string& str) {
-    for (char c : str) {
-        if (!std::isdigit(c)) {
-            return false; // 숫자가 아닌 문자가 있으면 정수가 아님
+class CFindStrType {
+    static enum strType { integer, noneInteger, unknown };
+public:
+
+    static strType returnStringType(std::string_view s) {
+
+
+        for (char c : s) {
+            if ((!std::isdigit(c)) && c != '.') {
+                return unknown; // 숫자가 아닌 문자가 있으면 정수가 아님
+            }
+        }
+
+        //숫자와 . 만 있을 때 
+        switch (std::count(s.begin(), s.end(), '.')) {
+        case 0:
+            return integer;
+        case 1:
+            return noneInteger;
+        default:
+            return unknown;
         }
     }
-    return true;
-}
+
+
+
+};
+
 
 
 /* testcode */
 int main() {
+
     std::string str1 = "123";
     std::string str2 = "12.34";
+    std::string str3 = ".1256c";
 
-    if (str2.find('.') != std::string::npos) {
-        std::cout << "str2 is a double: " << str2 << std::endl;
-    }
-    else if (isInteger(str2)) {
-        std::cout << "str2 is an integer: " << str2 << std::endl;
-    }
-    else {
-        std::cout << "str2 is neither an integer nor a double: " << str2 << std::endl;
-    }
+    auto result = CFindStrType::returnStringType(str1);
+    result = CFindStrType::returnStringType(str2);
+    result = CFindStrType::returnStringType(str3);
+
 
     return 0;
 }
