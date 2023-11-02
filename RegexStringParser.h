@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+const std::regex fileFullpathformat(R"(^(.*\\)([^\\]*\.[^\\]*)$)");
 
 //fileNameParser
 class RegexStringParser {
@@ -21,15 +22,30 @@ public:
             return extractedData;
         }
 
-        // ÀÏÄ¡ÇÏÁö ¾ÊÀ» °æ¿ì ºó º¤ÅÍ ¹İÈ¯
+        // ì¼ì¹˜í•˜ì§€ ì•Šì„ ê²½ìš° ë¹ˆ ë²¡í„° ë°˜í™˜
         return {};
     }
+
+
+	static std::vector<std::string> splitFilePathAndName(const std::string& input) {
+		std::smatch matches;
+		std::vector<std::string> extractedData(2);
+
+		if (std::regex_search(input, matches, fileFullpathformat)) {
+			extractedData[0] = matches[1];
+			extractedData[1] = matches[2];
+
+			return extractedData;
+		}
+
+		return {};
+	}
 
 };
 
 //test code
 int main() {
-    std::regex format(R"(([^_]+)_T(\d+)_t(\d+)_S([\d.]+)_([\d.]+)\.(.*))"); // ¿ä¼Ò¸¦ ÃßÃâÇÏ´Â Á¤±Ô Ç¥Çö½Ä
+    std::regex format(R"(([^_]+)_T(\d+)_t(\d+)_S([\d.]+)_([\d.]+)\.(.*))"); // ìš”ì†Œë¥¼ ì¶”ì¶œí•˜ëŠ” ì •ê·œ í‘œí˜„ì‹
     std::string input = "nicesd113_T20230812_t12067799_S2500000.89_45.6.mi"; // example
 
     auto result = RegexStringParser::extractParsingData(format, input);
