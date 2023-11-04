@@ -10,7 +10,8 @@ const std::regex fileFullpathformat(R"(^(.*\\)([^\\]*\.[^\\]*)$)");
 class RegexStringParser {
 
 public:
-    static std::vector<std::string> extractParsingData(const std::regex& reg, const std::string& input) {
+    static std::vector<std::string> extractParsingData(const std::regex& reg, const std::string_view inputv) {
+        std::string input(inputv);
         std::smatch matches;
         std::vector<std::string> extractedData;
 
@@ -27,7 +28,8 @@ public:
     }
 
 
-	static std::vector<std::string> splitFilePathAndName(const std::string& input) {
+	static std::vector<std::string> splitFilePathAndName(const std::string_view inputv) {
+        std::string input(inputv);
 		std::smatch matches;
 		std::vector<std::string> extractedData(2);
 
