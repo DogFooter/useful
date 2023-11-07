@@ -5,8 +5,11 @@
 
 class ConfigReader {
 private:
+    std::string whiteSpace = " ";
     std::map<std::string, std::string> paths;
+    std::string trim(std::string& str) {
 
+    }
 public:
     ConfigReader(const std::string& configFile) {
         std::ifstream file(configFile);
