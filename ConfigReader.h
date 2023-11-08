@@ -8,6 +8,10 @@ private:
     std::string whiteSpace = " ";
     std::map<std::string, std::string> paths;
     std::string trim(std::string& str) {
+        size_t start = str.find_first_not_of(whiteSpace);
+        size_t end = str.find_last_not_of(whiteSpace);
+
+        return (start == std::string::npos || end == std::string::npos) ? "" : str.substr(start, end - start + 1);
 
     }
 public:
@@ -17,8 +21,8 @@ public:
         while (std::getline(file, line)) {
             size_t pos = line.find('=');
             if (pos != std::string::npos) {
-                std::string key = line.substr(0, pos);
-                std::string value = line.substr(pos + 1);
+                std::string key = trim(line.substr(0, pos));
+                std::string value = trim(line.substr(pos + 1));
                 paths[key] = value;
             }
         }
