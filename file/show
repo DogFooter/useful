@@ -1,0 +1,9 @@
+struct show{
+	string sep;
+	ostream os;
+	
+	show(ostream& o = cout, string s = "\n"):os(n),sep(s){}
+	void operator()(T ob) const{		
+		os << ob << sep;
+	}
+}
