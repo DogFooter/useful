@@ -1,0 +1,38 @@
+#include <iostream>
+#include <filesystem>
+#include <chrono>
+#include <thread>
+
+namespace fs = std::filesystem;
+
+bool a(const std::string& filename) {
+    //do something
+    return true;
+}
+
+void b(const std::string& filename) {
+      //do something
+  
+}
+
+void MonitorFolder() {
+    std::string folderPath = "D://Convert";
+
+    while (true) {
+        for (const auto& entry : fs::directory_iterator(folderPath)) {
+            if (entry.is_regular_file()) {
+                std::string filePath = entry.path().string();
+                if (!a(filePath)) {
+                    b(filePath);
+                }
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::minutes(1));  // 1분 대기
+    }
+}
+
+int main() {
+    MonitorFolder();
+
+    return 0;
+}
