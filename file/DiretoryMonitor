@@ -2,8 +2,10 @@
 #include <filesystem>
 #include <chrono>
 #include <thread>
+#include <experimental/filesystem>
+using namespace std;
+namespace fs std::experimental::filesystem;
 
-namespace fs = std::filesystem;
 
 bool a(const std::string& filename) {
     //do something
