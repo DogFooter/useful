@@ -2,21 +2,22 @@
 #include <filesystem>
 #include <chrono>
 #include <thread>
-#include <experimental/filesystem>
+#include <filesystem>
 using namespace std;
-namespace fs std::experimental::filesystem;
+namespace fs std::filesystem;
 
 
-bool a(const std::string& filename) {
+bool check(const std::string& filename) {
     //do something
     return true;
 }
 
-void b(const std::string& filename) {
+void doSomething(const std::string& filename) {
       //do something
   
 }
 
+//특정 폴더 안의 파일을 순회하며 조건에 맞는 파일에 대해 어떤 작업을 수행
 void MonitorFolder() {
     std::string folderPath = "D://Convert";
 
@@ -24,8 +25,8 @@ void MonitorFolder() {
         for (const auto& entry : fs::directory_iterator(folderPath)) {
             if (entry.is_regular_file()) {
                 std::string filePath = entry.path().string();
-                if (!a(filePath)) {
-                    b(filePath);
+                if (!check(filePath)) {
+                    doSomething(filePath);
                 }
             }
         }
@@ -38,3 +39,4 @@ int main() {
 
     return 0;
 }
+
