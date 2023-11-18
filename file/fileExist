@@ -1,0 +1,9 @@
+#include <iostream>
+#include <fstream>
+
+bool fileExist(const std::string& filename) {
+    std::ifstream file(filename);
+    bool exists = file.good();
+    file.close(); 
+    return exists;
+}
